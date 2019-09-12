@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" verbose="1" >
+    <test name="Set A" >
+        <classes>
+            <class name="CucumberOptions.Testrunner"/>
+            <!--class name="TestPackage.ValidateRegistrationPageTestcase"/-->
+        </classes>
+    </test>
+</suite>
