@@ -13,25 +13,37 @@ public class LoginPage {
     By login = By.xpath("//form[@id='loginfrm']//button[@type='submit']");
     By errorMessage = By.xpath("//div[@class='alert alert-danger']");
 
-    public LoginPage(WebDriver driver){
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public WebElement email(){
+    public WebElement email() {
         return driver.findElement(email);
     }
-    public WebElement password(){
+
+    public WebElement password() {
         return driver.findElement(password);
     }
-    public WebElement login(){
+
+    public WebElement login() {
         return driver.findElement(login);
     }
-    public WebElement getErrorMessage(){
+
+    public WebElement getErrorMessage() {
         return driver.findElement(errorMessage);
     }
 
-    public void logInValidations(String errorMessage){
+    public void logInValidations(String errorMessage) {
         getErrorMessage().getText().contains(errorMessage);
+    }
+
+    public void openLoginPageConfirmation(){
+        driver.getPageSource().contains("LOGIN");
+    }
+
+    public void enterLogonDetails(String email, String password){
+        email().sendKeys(email);
+        password().sendKeys(password);
     }
 
 }

@@ -3,6 +3,7 @@ package PageObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 public class AccountPage {
@@ -10,7 +11,7 @@ public class AccountPage {
     public WebDriver driver;
 
     By firstLanding = By.xpath("//strong[contains(text(),'Nothing Booked Yet')]");
-    By greetingsMessage = By.xpath("//h3[@class='RTL']");
+    By welcomeMessage = By.xpath("//h3[@class='RTL']");
     By profile = By.xpath("//span[@class='profile-icon']");
     By bookings = By.xpath(("//a[@href='#bookings']"));
     By timeStamp = By.xpath("//div[@id='txt']");
@@ -19,22 +20,14 @@ public class AccountPage {
         this.driver = driver;
     }
 
-    public WebElement firstLandingAfterLogin(){
-        return driver.findElement(firstLanding);
-    }
-    public WebElement getTimeStamp(){
-        return driver.findElement(timeStamp);
+    public void welcomeMessageShown(String fname, String lname){
+        String message = "Hi, " + fname + " " + lname;
+        Assert.assertEquals(message, driver.findElement(welcomeMessage).getText());
     }
 
-    public  WebElement getProfile(){
-        return driver.findElement(profile);
-    }
-
-    public void confirmSuccessfulLogin(String fname, String lname){
-        Assert.assertTrue(driver.findElement(firstLanding) != null);
-        driver.getPageSource().contains("Hi, " + fname+ " " + lname);
-        driver.getCurrentUrl().contains("http://www.phptravels.net/account/");
-
+    public void openAccountPageConfirmation(){
+        Assert.assertEquals("https://www.phptravels.net/account/", driver.getCurrentUrl());
+        driver.getPageSource().contains(" Nothing Booked Yet ");
     }
 
 

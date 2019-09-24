@@ -4,10 +4,9 @@ Feature: Search For Hotels As Guest
 
 
   Background:
-    Given Initialize the browser with Chrome
-    And user navigates to "https://www.phptravels.net" website
+    Given User is on the "https://www.phptravels.net" website
 
-  Scenario Outline: Flight Search
+  Scenario Outline: Hotel Search
     Given user clicks on the hotel Search tab
     And The user enters the destination "<destination>", "<check-in>" date, "<check-out>" date, "<adult>" adult, "<child>" child
     When the user clicks in the search button

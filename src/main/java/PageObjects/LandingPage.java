@@ -1,7 +1,8 @@
 package PageObjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,11 +12,13 @@ import org.testng.Assert;
 
 public class LandingPage {
 
-    public WebDriver driver;
+    private WebDriver driver;
 
     public WebDriverWait webDriverWait;
 
-    By account = By.xpath("//ul[@class='nav navbar-nav navbar-right hidden-sm go-left']//li[@id='li_myaccount']//a[@class='dropdown-toggle go-text-right']");
+    static final Logger logger = LogManager.getLogger(LandingPage.class);
+
+    By account = By.xpath("//nav[contains(@class, 'navbar')]//li[@id='li_myaccount']/a");
 
     By SignUp = By.xpath("//nav[@class='navbar navbar-default']//ul[@class='dropdown-menu']//li[2]//a[1]");
 
@@ -23,7 +26,7 @@ public class LandingPage {
 
     By hotel = By.xpath("//span[contains(text(),'Hotels')]");
 
-    By hotelsearchlocator =  By.xpath("//*[@id='s2id_location']");
+    By hotelsearchlocator = By.xpath("//*[@id='s2id_location']");
 
     By hotelSearchText = By.xpath("//*[@id='select2-drop']/div/input"); //By.id("s2id_location");
 
@@ -41,70 +44,88 @@ public class LandingPage {
 
     By hotelSearchButton = By.xpath("//form[@name='fthhotelsSearch']//button[@type='submit']");
 
-    public LandingPage(WebDriver driver){
+    public LandingPage(WebDriver driver) {
         this.driver = driver;
     }
 
-public WebElement clickAccount(){
+    public WebElement clickAccount() {
         return driver.findElement(account);
-}
-
-public WebElement clickSignUp(){
-       return driver.findElement(SignUp);
-}
-
-public WebElement clickLogin(){
-        return  driver.findElement(Login);
-}
-
-public WebElement clickHotelTab(){
-        return driver.findElement(hotel);
-}
-
-public  WebElement clickHotelSearchLocator(){
-        return driver.findElement(hotelsearchlocator);
-}
-
-public WebElement enterHotelSearchText(){
-        return driver.findElement(hotelSearchText);
-}
-
-public WebElement getCityDropdown(){
-        return driver.findElement(hotelCityDropdown);
-}
-
-public WebElement getCheckInDate(){
-    return driver.findElement(checkInDate);
     }
 
-public WebElement getCheckoutDate(){
+    public WebElement clickSignUp() {
+        return driver.findElement(SignUp);
+    }
+
+    public WebElement clickLogin() {
+        return driver.findElement(Login);
+    }
+
+    public WebElement clickHotelTab() {
+        return driver.findElement(hotel);
+    }
+
+    public WebElement clickHotelSearchLocator() {
+        return driver.findElement(hotelsearchlocator);
+    }
+
+    public WebElement enterHotelSearchText() {
+        return driver.findElement(hotelSearchText);
+    }
+
+    public WebElement getCityDropdown() {
+        return driver.findElement(hotelCityDropdown);
+    }
+
+    public WebElement getCheckInDate() {
+        return driver.findElement(checkInDate);
+    }
+
+    public WebElement getCheckoutDate() {
         return driver.findElement(checkOutDate);
-}
-public WebElement getTravellers(){
-    return driver.findElement(travellers);
-}
+    }
 
-public WebElement getHotelSearchButton(){
+    public WebElement getTravellers() {
+        return driver.findElement(travellers);
+    }
+
+    public WebElement getHotelSearchButton() {
         return driver.findElement(hotelSearchButton);
-}
+    }
 
-public void searchHotelsPrepare(String hotelCityName, String checkinDate, String checkoutDate, int adults, int child) throws InterruptedException {
-    clickHotelSearchLocator().click();
-    enterHotelSearchText().sendKeys(hotelCityName);
-    webDriverWait = new WebDriverWait(driver, 10);
-    webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(hotelCityDropdown));
-    Assert.assertTrue(driver.findElements(hotelCityDropdown).size() > 0);
-    driver.findElement(By.xpath("//*[@id='select2-drop']/ul/li/ul/li[1]/div")).click();
+   public void navigateToRegistrationPage(){
+        clickAccount().click();
+        clickSignUp().click();
+   }
 
-    getCheckInDate().sendKeys(checkinDate);
+    public void navigateToLoginPage(){
+        clickAccount().click();
+        clickLogin().click();
+    }
 
-    getCheckoutDate().sendKeys(checkoutDate);
+   public void openUrl(String url){
+        driver.get(url);
+   }
 
-    getTravellers().click();
+    public void searchHotelsPrepare(String hotelCityName, String checkinDate, String checkoutDate, int adults, int child) throws InterruptedException {
+        clickHotelSearchLocator().click();
+        enterHotelSearchText().sendKeys(hotelCityName);
+        webDriverWait = new WebDriverWait(driver, 10);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(hotelCityDropdown));
+        Assert.assertTrue(driver.findElements(hotelCityDropdown).size() > 0);
+        driver.findElement(By.xpath("//*[@id='select2-drop']/ul/li/ul/li[1]/div")).click();
 
-    driver.findElement(adultPlsButton).click();
+        getCheckInDate().sendKeys(checkinDate);
 
-    driver.findElement(kidPlusButton).click();
-}
+        getCheckoutDate().sendKeys(checkoutDate);
 
+        getTravellers().click();
+
+        driver.findElement(adultPlsButton).click();
+
+        driver.findElement(kidPlusButton).click();
+    }
+
+    public void openHotelSearchTab(){
+
+    }
 }
