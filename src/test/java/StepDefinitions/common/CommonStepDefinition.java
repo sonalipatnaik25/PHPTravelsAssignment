@@ -22,6 +22,11 @@ public class CommonStepDefinition extends base {
         logger.info("initializing.....");
         initializeObjects();
     }
+    @Given("^User enters the application url$")
+    public void User_enters_the_application_url() throws Throwable{
+        logger.info("User is providing the application url");
+        driver.get(configFileReader.getApplicationUrl());
+    }
 
     @Given("^User is on the \"([^\"]*)\" website$")
     public void user_is_on_the_website(String url) throws Throwable {

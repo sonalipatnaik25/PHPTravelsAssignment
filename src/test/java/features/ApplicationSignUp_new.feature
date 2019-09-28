@@ -3,7 +3,7 @@ Feature: Registration of new User
   so that I am able to access my Account and benefit from doing the transactions on Phptravels website.
 
   Background:
-    Given User is on the "https://www.phptravels.net" website
+    Given User enters the application url
     And User navigates to "SignUpPage" Page
 
   @successfulRegistration

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utility.ConfigFileReader;
 import utility.WebDriverUtils;
 
 import java.io.IOException;
@@ -23,6 +24,8 @@ public abstract class base {
     protected static SignUpPage signUpPage;
     protected static HotelSearchPage hotelSearchPage;
     protected static AccountPage accountPage;
+    static ConfigFileReader configFileReader;
+
 
     public static void initializeObjects() throws IOException {
         driver = WebDriverUtils.initializeDriver();
@@ -31,7 +34,7 @@ public abstract class base {
         signUpPage = new SignUpPage(driver);
         hotelSearchPage = new HotelSearchPage(driver);
         accountPage = new AccountPage(driver);
-
+        configFileReader = new ConfigFileReader();
     }
     public void scrollToElement(){
         WebElement element = driver.findElement(By.xpath("//div[@class='form-group']//button[@type='submit']"));

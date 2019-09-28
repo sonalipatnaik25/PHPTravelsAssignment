@@ -4,7 +4,7 @@ Feature: Search For Hotels As Guest
 
 
   Background:
-    Given User is on the "https://www.phptravels.net" website
+    Given Given User enters the application url
 
   Scenario Outline: Hotel Search
     Given user clicks on the hotel Search tab
