@@ -1,8 +1,8 @@
 package PageObjects;
 
-import org.openqa.selenium.By;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -42,6 +42,8 @@ public class LandingPage {
     By kidPlusButton = By.xpath("//button[@id='hchildPlusBtn']//i[@class='fa fa-plus']");
 
     By hotelSearchButton = By.xpath("//form[@name='fthhotelsSearch']//button[@type='submit']");
+
+    By resultTable = By.xpath("//*[@id='select2-drop']/ul/li/ul/li[1]/div");
 
     public LandingPage(WebDriver driver) {
         this.driver = driver;
@@ -106,25 +108,18 @@ public class LandingPage {
    }
 
     public void searchHotelsPrepare(String hotelCityName, String checkinDate, String checkoutDate, int adults, int child) throws InterruptedException {
+        logger.info("Hotel Search Data...");
         clickHotelSearchLocator().click();
         enterHotelSearchText().sendKeys(hotelCityName);
         webDriverWait = new WebDriverWait(driver, 10);
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(hotelCityDropdown));
         Assert.assertTrue(driver.findElements(hotelCityDropdown).size() > 0);
-        driver.findElement(By.xpath("//*[@id='select2-drop']/ul/li/ul/li[1]/div")).click();
-
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(resultTable));
+        driver.findElement(resultTable).click();
         getCheckInDate().sendKeys(checkinDate);
-
         getCheckoutDate().sendKeys(checkoutDate);
-
         getTravellers().click();
 
-        driver.findElement(adultPlsButton).click();
-
-        driver.findElement(kidPlusButton).click();
     }
 
-    public void openHotelSearchTab(){
-
-    }
 }

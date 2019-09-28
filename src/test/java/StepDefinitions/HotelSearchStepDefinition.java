@@ -12,10 +12,6 @@ import StepDefinitions.common.base;
 @RunWith(Cucumber.class)
 public class HotelSearchStepDefinition extends base {
 
-    LandingPage land;
-    HotelSearchPage hotelSearchPage;
-
-
     @Given("^user clicks on the hotel Search tab$")
     public void and_user_clicks_on_the_hotel_Search_tab() throws Throwable {
         landingPage.clickHotelTab().click();
@@ -28,12 +24,11 @@ public class HotelSearchStepDefinition extends base {
 
     @When("^the user clicks in the search button$")
     public void the_user_clicks_in_the_search_button() throws Throwable {
-        land.getHotelSearchButton().click();
+        landingPage.getHotelSearchButton().click();
     }
 
     @Then("^The user is redirected to hotel search results")
     public void the_user_is_redirected_to_hotel_search_results() throws Throwable {
-        hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.confirmHotelSearchResults();
     }
 
